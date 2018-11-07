@@ -19,9 +19,11 @@
         </dependency>
     </dependencies>
 
+    <!--
+    由于统一在父工程里面写了，所以就不用每个工程都写一遍
     <build>
         <plugins>
-            <!-- 添加spring-boot的maven插件 -->
+            &lt;!&ndash; 添加spring-boot的maven插件 &ndash;&gt;
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -34,6 +36,6 @@
                 </executions>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 
 </project>

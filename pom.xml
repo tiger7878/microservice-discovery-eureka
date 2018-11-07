@@ -16,6 +16,14 @@
     </modules>
     <packaging>pom</packaging>
 
+    <properties>
+        <!--依赖版本号管理-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!--spring-boot-dependencies版本号，通过spring-boot管理其他第三方依赖版本-->
+        <spring.boot.version>1.4.3.RELEASE</spring.boot.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <!--spring-cloud依赖-->
@@ -29,8 +37,8 @@
             <!--spring-boot依赖-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-parent</artifactId>
-                <version>1.4.3.RELEASE</version>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -51,15 +59,39 @@
                 </configuration>
             </plugin>
 
-            <!--打包插件，否则jar这些就没有打包进去-->
+            <!--统一在父工程写 打包插件，否则jar这些就没有打包进去-->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
+
         </plugins>
+
+        <!-- 这种方式在子工厂还需要写build，个人推荐上面一种
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring.boot.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>-->
     </build>
 
 </project>
